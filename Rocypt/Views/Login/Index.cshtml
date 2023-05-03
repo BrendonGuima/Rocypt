@@ -1,0 +1,31 @@
+﻿@model LoginModel
+@{
+	Layout = "_LayoutLogin";
+	ViewData["Title"] = "Login";
+}
+
+
+<div class="window">
+    <h1 class="main-title">Login...</h1>
+    <form class="user-data" asp-controller="Login" asp-action="Entrar" method="post">
+        <label class="input-label" for="email">Email</label>
+        <input class="user-input" placeholder="•••••••••@@exemple.com" type="text" asp-for="Email" id="email" required="required">
+        @Html.ValidationMessageFor(x => x.Email)
+        <label class="input-label" for="password">Senha Master</label>
+        <input class="user-input" placeholder="•••••••••" type="password" asp-for="Password" id="password" required="required">
+        @Html.ValidationMessageFor(x => x.Password)
+		@if (TempData["MensagemErro"] != null)
+		{
+			 <div role="alert">
+                @TempData["MensagemErro"]
+             </div>
+		}
+
+        <div class="links">
+            <a asp-controller="Registro" asp-action="Index" >Não tem uma conta? Cadastre-se</a>
+            <a asp-controller="RedefinirSenha" asp-action="Index">Esqueceu a senha master?</a>
+        </div>
+    <div class="btn-functions">
+        <button class="btn-style" id="entrar">Entrar</button>
+    </div>
+</form>
