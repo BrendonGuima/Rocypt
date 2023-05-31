@@ -24,15 +24,11 @@ namespace Rocypt.Controllers
         {
             if (!User.Identity.IsAuthenticated) return RedirectToAction("Index", "Login");
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<GrupoModel> grupos = _grupoRespositorio.BuscarTodos(Guid.Parse(userId));
-            return View(grupos);
+            var model = new PainelIndexModel();
+            model.grupoModels = _grupoRespositorio.BuscarTodos(Guid.Parse(userId));
+            return View(model);
         }
 
-        [HttpGet]
-        public IActionResult CriarGrupo()
-        {
-            return View();
-        }
 
         public IActionResult Deslogar()
         {
@@ -43,8 +39,6 @@ namespace Rocypt.Controllers
         [HttpPost]
         public IActionResult CriarGrupo(GrupoModel grupo)
         {
-            try
-            {
                 if (ModelState.IsValid)
                 {
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -53,29 +47,34 @@ namespace Rocypt.Controllers
                     grupo = _grupoRespositorio.Adicionar(grupo);
                     return RedirectToAction("Index");
                 }
-                return View();
-            }catch(Exception erro)
-            {
-                TempData["MensagemErro"] = $"Ops, não conseguimos adicionar um grupo, tente novamante, detalhe do erro: {erro.Message}";
-                return View();
-            }
-
+                return View();   
         }
 
-      
-        public IActionResult Apagar(Guid id)
+        [HttpPost]
+        public IActionResult AlterarGrupo(GrupoModel grupo)
         {
-            try
+            
+            if (ModelState.IsValid)
             {
-                bool apagado = _grupoRespositorio.Apagar(id);
+                grupo = _grupoRespositorio.Atualizar(grupo);
+                _databankContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View("Index");
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch (Exception erro)
+
+
+        [HttpPost]
+        public IActionResult ApagarGrupo(GrupoModel grupo)
+        {
+            if (ModelState.IsValid)
             {
-                TempData["MensagemErro"] = $"Ops, não conseguimos apagar seu usuário, tente novamante, detalhe do erro: {erro.Message}";
+                grupo = _grupoRespositorio.Apagar(grupo);
+                _databankContext.SaveChanges();
                 return RedirectToAction("Index");
             }
+            return View("Index");
         }
     }
 }
