@@ -41,6 +41,9 @@ function editPopup(groupId, groupName) {
     if (groupIdInput) {
         groupIdInput.value = groupId;
     }
+
+
+
 }
 function editClose() {
     const overlayEdit = document.querySelector("#overlay-edit");
@@ -48,7 +51,6 @@ function editClose() {
     
     overlayEdit.style.display = "none";
     contentEdit.style.scale = "0";
-    location.reload();
 }
 
 //Trocar entre tela de grupos e de senhas

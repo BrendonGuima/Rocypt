@@ -40,7 +40,6 @@ namespace Rocypt.Repositorio
 
             _databankContext.Grupo.Update(grupoDb);
             _databankContext.SaveChanges();
-
             return grupoDb;
         }
 

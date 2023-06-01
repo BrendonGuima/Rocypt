@@ -6,5 +6,9 @@
 
         public GrupoModel grupo { get; set; }
 
+        public List<PasswordModel> passwordGroupModels { get; set; }
+
+        public PasswordModel passwordGroup { get; set; }
+
     }
 }

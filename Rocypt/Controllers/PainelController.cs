@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Rocypt.Data;
 using Rocypt.Models;
 using Rocypt.Repositorio;
@@ -12,12 +11,15 @@ namespace Rocypt.Controllers
     {
         private readonly IGrupoRepositorio _grupoRespositorio;
         private readonly DatabankContext _databankContext;
+        private readonly IPasswordDataRepositorio _passwordDataRespositorio;
 
 
-        public PainelController(IGrupoRepositorio grupoRepositorio, DatabankContext databankContext)
+        public PainelController(IGrupoRepositorio grupoRepositorio, IPasswordDataRepositorio passwordDataRespositorio, DatabankContext databankContext)
         {
             _grupoRespositorio = grupoRepositorio;
+            _passwordDataRespositorio = passwordDataRespositorio;
             _databankContext = databankContext;
+
         }
 
         public IActionResult Index()
@@ -39,21 +41,21 @@ namespace Rocypt.Controllers
         [HttpPost]
         public IActionResult CriarGrupo(GrupoModel grupo)
         {
-                if (ModelState.IsValid)
-                {
-                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    UsuarioModel usuario = _databankContext.Usuarios.Find(Guid.Parse(userId));
-                    grupo.UsuarioId = usuario.Id;
-                    grupo = _grupoRespositorio.Adicionar(grupo);
-                    return RedirectToAction("Index");
-                }
-                return View();   
+            if (ModelState.IsValid)
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                UsuarioModel usuario = _databankContext.Usuarios.Find(Guid.Parse(userId));
+                grupo.UsuarioId = usuario.Id;
+                grupo = _grupoRespositorio.Adicionar(grupo);
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         [HttpPost]
-        public IActionResult AlterarGrupo(GrupoModel grupo)
+        public IActionResult Alterar(GrupoModel grupo)
         {
-            
+
             if (ModelState.IsValid)
             {
                 grupo = _grupoRespositorio.Atualizar(grupo);
@@ -66,7 +68,7 @@ namespace Rocypt.Controllers
 
 
         [HttpPost]
-        public IActionResult ApagarGrupo(GrupoModel grupo)
+        public IActionResult Apagar(GrupoModel grupo)
         {
             if (ModelState.IsValid)
             {
@@ -76,5 +78,8 @@ namespace Rocypt.Controllers
             }
             return View("Index");
         }
+
+
+
     }
 }

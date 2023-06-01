@@ -42,7 +42,7 @@
   });
 });</script>
 <!--Fim Popups da tela de criação de grupos-->
-<form id="modalEditForm" method="post" action="/Painel/AlterarGrupo">
+<form id="modalEditForm" method="post" action="/Painel/Alterar">
 <div class="popup" id="popup-edit-group">
     <div id="overlay-edit" class="overlay"></div>
     <div id="content-edit" class="content">
@@ -52,13 +52,13 @@
         <input id="group-id-input" class="user-input" type="hidden" value="" name="grupo.Id">
         <input id="group-name-input" class="user-input" type="text" value="" name="grupo.Name">
         <div class="btn-popup">
-            <button id="confirm-popup" onclick="editClose()" class="confirm-popup">Confirmar</button>
-</form>
+             <button id="confirm-popup" class="confirm-popup">Confirmar</button>
             <button id="delete-popup" onclick="deleteGroupOn()" class="delete-popup">Excluir</button>
             <button id="cancel-popup" onclick="editClose()" class="cancel-popup">Cancelar</button>
         </div>
     </div>
 </div>
+</form>
 
 
 <script>
@@ -73,7 +73,7 @@
       success: function(response) {
         // Lidar com a resposta do servidor (opcional)
         createClose(); // Fechar o modal após o envio bem-sucedido
-        
+        location.reload();
       },
       error: function(xhr, status, error) {
         // Lidar com erros (opcional)
@@ -132,8 +132,8 @@
                                 <h1 class="main-title" id="popup-title">Adicionar nova Senha...</h1>
                                 <h3 style="color:rgb(247, 0, 255)" id="popup-text"></h3>
                             </div>
-
-                            <div class="password-creation">
+                            <form class="password-creation">
+                            
                                 <label for="password-name">Nome da senha...</label>
                                 <input id="password-name" class="user-input" type="text">
 
@@ -147,19 +147,22 @@
                                     <label for="password-user-password">Senha...</label>
                                     <div class="password-edit-random">
                                         <input id="password-user-password" class="user-input" type="password">
-                                        <button class="btn-style-popup" id="hidden-pass" onclick="viewPassword()"><i id="hidden-pass-icon" class="fa fa-eye-slash"></i></button>
-                                        <button class="btn-style-popup" id="random-password" onclick=""><i class="fa fa-random"></i></button>
+                                        <button type="button" class="btn-style-popup" id="hidden-pass" onclick="viewPassword()"><i id="hidden-pass-icon" class="fa fa-eye-slash"></i></button>
+                                        <button type="button" class="btn-style-popup" id="random-password" onclick=""><i class="fa fa-random"></i></button>
                                     </div>
                                     <h2 class="tip">O botão ao lado criará uma senha completamente aleatória.</h2>
                                 </div>
-                                
-                            </div>
+
+           
 
                             <div class="btn-popup">
-                                <button id="confirm-popup" onclick="createNewPasswordOff()" class="confirm-popup">Confirmar</button>
-                                <button id="cancel-popup" onclick="createNewPasswordOff()" class="cancel-popup">Cancelar</button>
+                                <button type="submit" id="confirm-popup" onclick="createNewPasswordOff()" class="confirm-popup">Confirmar</button>
+                            <button type="button" id="cancel-popup" onclick="createNewPasswordOff()" class="cancel-popup">Cancelar</button>
                             </div>
+                            </form>
                         </div>
+                        
+
                     </div>
             </div>
 
@@ -254,12 +257,13 @@
                                 <div class="group-zone">
                                     <div class="group-template">
                                         <div class="name">
-                                            <button id="group-name" onclick="editPasswordOn()">Senha 1</button>
+                                            <button id="group-name" onclick="editPasswordOn()">Senha1</button>
                                         </div>
                                         <div class="area-edit">
-                                            <button  id="btn-exclude" onclick="deletePasswordOn()" class="btn-edit"><i class="fa fa-trash" id="btn-exclude"></i></button>
+                                            <button id="btn-exclude" onclick="deletePasswordOn()" class="btn-edit"><i class="fa fa-trash" id="btn-exclude"></i></button>
                                         </div>
                                     </div>
+                               
                                 </div>
                         </div>
 
@@ -311,16 +315,16 @@
 
                                 <div class="group-zone" id="password-zone">
 
-                                    <div class="group-template">
+                                        <div class="group-template">
                                         <div class="name">
-                                            <button id="group-name" onclick="editPasswordOn()">Senha 1</button>
+                                            <button id="group-name" onclick="editPasswordOn()">Senha1</button>
                                         </div>
                                         <div class="area-edit">
                                             <button id="btn-exclude" onclick="deletePasswordOn()" class="btn-edit"><i class="fa fa-trash" id="btn-exclude"></i></button>
                                         </div>
                                     </div>
-                                    
-                                </div>
+                               
+                               </div>
 
 
                             </div>
