@@ -71,6 +71,11 @@ function groupPasswordsOn(button) {
     var passwords = document.getElementById("mobile-passwords");
     var groups = document.getElementById("mobile-groups");
     var passid = document.getElementsByClassName("btn-style-mobile");
+    const groupidpass = document.querySelector("#new-group-pass");
+
+    if (groupidpass) {
+        groupidpass.value = groupId;
+    }
 
     passid.id = groupId;
 
@@ -113,18 +118,57 @@ function createNewPasswordOff() {
     contentPassword.style.scale = "0";
 }
 
+function editPasswordOff() {
+    const overlayPassword = document.querySelector("#overlay-edit-password");
+    const contentPassword = document.querySelector("#content-edit-password");
+
+    overlayPassword.style.display = "none";
+    contentPassword.style.scale = "0";
+}
+
 //Abrir e fechar popup de editar senha
-function editPasswordOn() {
-    const overlayPassword = document.querySelector("#overlay-new-password");
-    const contentPassword = document.querySelector("#content-new-password");
-    const mainTitle = document.getElementById("popup-title");
-    const mainText = document.getElementById("popup-text");
+function editPasswordOn(passId, passName, passEmail, passUserName, passSenha) {
+    console.log(passId);
+    console.log(passName);
+    console.log(passEmail);
+    console.log(passUserName);
+    console.log(passSenha);
+
+    const overlayPassword = document.querySelector("#overlay-edit-password");
+    const contentPassword = document.querySelector("#content-edit-password");
+    const mainTitle = document.getElementById("popup-title-edit");
+    const mainText = document.getElementById("popup-text-edit");
+    const passIdInput = document.querySelector("#pass-id-input");
+    const passwordNameInput = document.querySelector("#password-name-input");
+    const passwordEmailInput = document.querySelector("#password-email-input");
+    const passwordUserInput = document.querySelector("#password-user-input");
+    const passwordUserpassInput = document.querySelector("#password-userpass-input");
 
     overlayPassword.style.display = "flex";
     contentPassword.style.scale = "1";
 
     mainTitle.innerHTML = "Visualização da senha...";
     mainText.innerHTML = "Pode ser editada...";
+
+    if (passIdInput) {
+        passIdInput.value = passId;
+    }
+
+    if (passwordNameInput) {
+        passwordNameInput.value = passName;
+    }
+
+    if (passwordEmailInput) {
+        passwordEmailInput.value = passEmail;
+    }
+
+    if (passwordUserInput) {
+        passwordUserInput.value = passUserName;
+    }
+
+    if (passwordUserpassInput) {
+        passwordUserpassInput.value = passSenha;
+    }
 
 }
 
